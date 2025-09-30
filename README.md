@@ -30,5 +30,4 @@ Ejecutar el programa:
 
 ruby main.rb
 
-ruby main.rb
 
