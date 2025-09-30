@@ -8,9 +8,9 @@ class Usuarios
     # Constructor que inicializa los atributos y agrega el usuario al hash.
     def initialize(nombre, email, pin)
         @nombre = nombre
-        @email = email
+        @@users[nombre] = {nombre: @nombre , email: nil, pin: nil }
+        self.email = email
         self.pin = pin
-        @@users[nombre] = {nombre: @nombre , email: @email, pin: @pin }
     end
 
     # Setter para actualizar el nombre y la clave en el hash.
@@ -23,11 +23,19 @@ class Usuarios
         #datos[:nombre] = nombre
         #@nombre = nuevo_nombre
         #@@users[nombre] = datos 
-
     end
 
+    # Setter para crear, validar y actualizar el email.
+    def email=(email)
+        if !!(email =~ /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i)
+            @email = email
+            @@users[@nombre][:email] = email if @@users[@nombre] # solo si el usuario ya está registrado
+        else
+            raise ArgumentError, "Email no válido"
+        end
+    end
 
-    # Setter para crear y validar PIN.
+    # Setter para crear, actualizar y validar PIN.
     def pin=(pin)
         if pin.is_a?(Integer) && pin.to_s.length == 4
             @pin = pin
@@ -37,7 +45,7 @@ class Usuarios
         end
     end
 
-    # Variabl de clase para mostrar todos los usuarios.
+    # Metodo de clase para mostrar todos los usuarios.
     def self.mostrar_usuarios
         @@users.each do |nombre, info|
             puts "Nombre: #{info[:nombre]}, Email: #{info[:email]}, PIN: #{info[:pin]}"
@@ -45,4 +53,4 @@ class Usuarios
     end
 end
 
-# iban = Usuarios.new("Iban", "iban@gmail.com", 123) 
+# iban = Usuarios.new("Iban", "iban@gmail.com", 1234) 
