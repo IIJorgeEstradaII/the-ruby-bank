@@ -1,6 +1,6 @@
 class Usuarios
-    
-    attr_accessor :nombre, :email, :pin 
+
+    attr_reader :nombre, :email 
 
     # Hash para almacenar los usuarios.
     @@users = {}
@@ -53,4 +53,6 @@ class Usuarios
     end
 end
 
-# iban = Usuarios.new("Iban", "iban@gmail.com", 1234) 
+jorge = Usuarios.new("jorge", "jorge@gmail.com", 1234) 
+champion = Usuarios.new("Champion", "champion@gmail.com", 1234)
+atzel =  Usuarios.new("atzel", "atzel@gmail.com", 1234)
